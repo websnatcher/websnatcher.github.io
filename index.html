@@ -14,14 +14,87 @@
       html,
       body {
         width: 100%;
+        height: 100%;
       }
 
-      image {
-        object-fit: scale-down;
+      body {
+        overflow: hidden;
+      }
+      .scroll {
+        overflow-y: auto;
+      }
+
+      .popup {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        background: #727272;
+        transition: all 0.5s ease;
+        cursor: pointer;
+        user-select: none;
+        border-radius: 0;
+        width: 105vmax;
+        aspect-ratio: 1;
+        position: fixed;
+        left: 50%;
+        bottom: 50%;
+        transform: translate(-50%, 50%) scale(1);
+        border: 30px solid #0000;
+      }
+
+      .minimize {
+        border-radius: 50%;
+        bottom: 0;
+        transform: translate(-50%, 50%) scale(0.05);
+        border-color: #f00;
+      }
+
+      .popup img {
+        overflow: hidden;
+        width: 55%;
+        aspect-ratio: 16/9;
+        box-shadow: 0 0 10px 7px #000;
+        border-radius: 7px;
+      }
+
+      img {
+        object-fit: contain;
+      }
+
+      .formLink {
+        padding: 10px;
+        display: inline-block;
       }
     </style>
   </head>
   <body>
+    <div class="popup">
+      <img src="sub-iost-poster.png" alt="SUB IOST Poster" width="100%" />
+    </div>
     <img src="iost-programs-map.png" alt="IOST Programs Map" width="100%" />
   </body>
+  <script>
+    const body = document.body;
+    const popup = document.querySelector(".popup");
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const togglePopup = () => {
+      body.classList.toggle("scroll");
+      popup.classList.toggle("minimize");
+    };
+
+    popup.addEventListener("click", togglePopup);
+
+    if (urlParams.get("ref") === "go") {
+      togglePopup();
+      const goLink = document.createElement("a");
+      goLink.href = "https://forms.gle/oVWwqbubdTf9Ny8p6";
+      goLink.textContent = "Back To Form";
+      goLink.classList.add("formLink");
+      body.insertAdjacentElement("afterbegin", goLink);
+    } else {
+      setTimeout(togglePopup, 3000);
+    }
+  </script>
 </html>
