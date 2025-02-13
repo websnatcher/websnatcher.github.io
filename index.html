@@ -56,6 +56,7 @@
         aspect-ratio: 16/9;
         box-shadow: 0 0 10px 7px #000;
         border-radius: 7px;
+        min-width: 320px;
       }
 
       img {
@@ -69,6 +70,8 @@
     </style>
   </head>
   <body>
+    <a class="formLink" href="https://forms.gle/oVWwqbubdTf9Ny8p6" target="_blank">Fill The Form</a>
+
     <div class="popup">
       <img src="sub-iost-poster.png" alt="SUB IOST Poster" width="100%" />
     </div>
@@ -77,6 +80,7 @@
   <script>
     const body = document.body;
     const popup = document.querySelector(".popup");
+    const formLink = document.querySelector(".formLink")
     const urlParams = new URLSearchParams(window.location.search);
 
     const togglePopup = () => {
@@ -88,11 +92,7 @@
 
     if (urlParams.get("ref") === "go") {
       togglePopup();
-      const goLink = document.createElement("a");
-      goLink.href = "https://forms.gle/oVWwqbubdTf9Ny8p6";
-      goLink.textContent = "Back To Form";
-      goLink.classList.add("formLink");
-      body.insertAdjacentElement("afterbegin", goLink);
+      formLink.textContent = "Back To Form";
     } else {
       setTimeout(togglePopup, 3000);
     }
